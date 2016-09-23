@@ -113,6 +113,18 @@ public class UniquePersonList implements Iterable<Person> {
         internalList.clear();
     }
 
+    /**
+     * Sorts all persons in list by their names.
+     */   
+    public void sort() {
+        internalList.sort(comparePeopleByName());
+    }
+
+    public static Comparator<? super Person> comparePeopleByName() {
+        return (person1, person2) -> person1.getName().toString().compareToIgnoreCase(person2.getName().toString());
+        
+    }
+    
     @Override
     public Iterator<Person> iterator() {
         return internalList.iterator();
@@ -130,5 +142,5 @@ public class UniquePersonList implements Iterable<Person> {
     public int hashCode() {
         return internalList.hashCode();
     }
-
+    
 }
