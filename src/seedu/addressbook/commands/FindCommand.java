@@ -1,7 +1,6 @@
 package seedu.addressbook.commands;
 
 import seedu.addressbook.data.person.ReadOnlyPerson;
-
 import java.util.*;
 
 /**
@@ -37,7 +36,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Retrieve all persons in the address book whose names contain some of the specified keywords.
+     * Retrieve all persons in the address book whose names/address/tags contain some of the specified keywords.
      *
      * @param keywords for searching
      * @return list of persons found
@@ -49,7 +48,20 @@ public class FindCommand extends Command {
             if (!Collections.disjoint(wordsInName, keywords)) {
                 matchedPersons.add(person);
             }
+            
+            final Set<String> wordsInAddress = new HashSet<>(person.getAddress().getWordsInAddress());
+            if (!Collections.disjoint(wordsInAddress, keywords)) {
+                matchedPersons.add(person);
+            }
         }
+        
+        for (ReadOnlyPerson person : addressBook.getAllPersons()) {
+            final ArrayList<String> wordsInTags = person.getTags().getTagList();
+            if (!Collections.disjoint(wordsInTags, keywords)) {
+                matchedPersons.add(person);
+            }
+        }
+        
         return matchedPersons;
     }
 
