@@ -15,6 +15,7 @@ import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 public class Parser {
 
     public static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    public static final Pattern PERSON_NAME_ARGS_FORMAT = Pattern.compile(" (?<targetName>.+)");
 
     public static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
@@ -82,6 +83,9 @@ public class Parser {
 
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
+                
+            case DeleteTaskCommand.COMMAND_WORD:
+            	return prepareTaskDelete(arguments);
 
             case HelpCommand.COMMAND_WORD: // Fallthrough
             default:
@@ -157,6 +161,15 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
     }
+    
+    private Command prepareTaskDelete(String args) {
+        try {
+            final String targetName = parseArgsAsDisplayedName(args);
+            return new DeleteTaskCommand(targetName);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTaskCommand.MESSAGE_USAGE));
+        }
+    }
 
     /**
      * Parses arguments in the context of the view command.
@@ -206,6 +219,14 @@ public class Parser {
             throw new ParseException("Could not find index number to parse");
         }
         return Integer.parseInt(matcher.group("targetIndex"));
+    }
+    
+    private String parseArgsAsDisplayedName(String args) throws ParseException, NumberFormatException {
+        final Matcher matcher = PERSON_NAME_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            throw new ParseException("Could not find name to parse");
+        }
+        return matcher.group("targetName");
     }
 
 

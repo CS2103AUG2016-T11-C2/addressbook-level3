@@ -15,6 +15,7 @@ public abstract class Command {
     protected AddressBook addressBook;
     protected List<? extends ReadOnlyPerson> relevantPersons;
     private int targetIndex = -1;
+    private String targetName = new String();
 
     /**
      * @param targetIndex last visible listing index of the target person
@@ -22,7 +23,11 @@ public abstract class Command {
     public Command(int targetIndex) {
         this.setTargetIndex(targetIndex);
     }
-
+    
+    public Command(String targetName) {
+    	this.setTargetName(targetName);
+    }
+    
     protected Command() {
     }
 
@@ -57,6 +62,8 @@ public abstract class Command {
     protected ReadOnlyPerson getTargetPerson() throws IndexOutOfBoundsException {
         return relevantPersons.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
     }
+    
+
 
     public int getTargetIndex() {
         return targetIndex;
@@ -64,5 +71,13 @@ public abstract class Command {
 
     public void setTargetIndex(int targetIndex) {
         this.targetIndex = targetIndex;
+    }
+    
+    public String getTargetName() {
+    	return targetName;
+    }
+    
+    public void setTargetName(String targetName) {
+    	this.targetName = targetName;
     }
 }
