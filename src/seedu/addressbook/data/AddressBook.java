@@ -137,6 +137,14 @@ public class AddressBook {
     public void sort() {
         allPersons.sort();
     }
+    
+    public Person getPerson(ReadOnlyPerson toGet) {
+    	for (Person person : allPersons) {
+    		if (person.equals(toGet))
+    			return person;
+    	}
+		return null;
+    }
 
     /**
      * Defensively copied UniquePersonList of all persons in the address book at the time of the call.
