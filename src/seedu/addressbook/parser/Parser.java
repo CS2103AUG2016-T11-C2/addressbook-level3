@@ -2,8 +2,6 @@ package seedu.addressbook.parser;
 
 import seedu.addressbook.commands.*;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.person.Person;
-import seedu.addressbook.data.person.UniquePersonList;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -155,37 +153,45 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
- 
     private Command prepareDelete(String args) {
         try {
-        	int targetIndex = -1;
-        	char ch = args.substring(args.indexOf(' ')).charAt(1);
+<<<<<<< HEAD
+            int targetIndex = -1;
+        	char ch = args.substring(' ').charAt(1);
         	List<Person> internalList = UniquePersonList.internalList;
-        	if(Character.isLetter(ch)) {
-        	targetIndex = deleteName(args.substring(args.indexOf(' ')).trim(), internalList);
+        	if (Character.isLetter(ch)) {
+        		targetIndex = deleteName(args.substring(args.indexOf(' ')).trim(), internalList);
         	}
         	else {
         		targetIndex = parseArgsAsDisplayedIndex(args);
         	}
+=======
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+>>>>>>> 282d8bdd330d0651f7b299d60cace10bc5fce2d1
             return new DeleteCommand(targetIndex);
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
     }
+<<<<<<< HEAD
     
+<<<<<<< HEAD
     private int deleteName(String name, List<Person> internalList) {
   
+=======
+    private int deleteName (String name, List<Person> internalList) {
+    	
+>>>>>>> 90896fdc8a07f2d6d7d2c9e4baa6339620d3987a
     	for (int i=0; i<internalList.size(); i++) {
     		if (internalList.get(i).getName().toString().equals(name)) {
-    				return i+1;
-    			}
+    			return i+1;
+    		}
     	}
     	return -1;
-    			
-    		
-    	
     	
     }
+=======
+>>>>>>> 282d8bdd330d0651f7b299d60cace10bc5fce2d1
 
     /**
      * Parses arguments in the context of the view command.
