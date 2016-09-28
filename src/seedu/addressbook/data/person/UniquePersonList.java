@@ -28,7 +28,7 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public static class PersonNotFoundException extends Exception {}
 
-    public final static List<Person> internalList = new ArrayList<>();
+    public static final List<Person> internalList = new ArrayList<>();
 
     /**
      * Constructs empty person list.
@@ -113,6 +113,18 @@ public class UniquePersonList implements Iterable<Person> {
         internalList.clear();
     }
 
+    /**
+     * Sorts all persons in list by their names.
+     */   
+    public void sort() {
+        internalList.sort(comparePeopleByName());
+    }
+
+    public static Comparator<? super Person> comparePeopleByName() {
+        return (person1, person2) -> person1.getName().toString().compareToIgnoreCase(person2.getName().toString());
+        
+    }
+    
     @Override
     public Iterator<Person> iterator() {
         return internalList.iterator();
@@ -131,5 +143,4 @@ public class UniquePersonList implements Iterable<Person> {
         return internalList.hashCode();
     }
     
-
 }

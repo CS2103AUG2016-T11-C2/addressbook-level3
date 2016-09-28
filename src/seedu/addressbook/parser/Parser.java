@@ -84,6 +84,10 @@ public class Parser {
 
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
+            case SortCommand.COMMAND_WORD:
+                return new SortCommand();
+            case EditCommand.COMMAND_WORD:
+            	return prepareEditCommand(arguments);
 
             case HelpCommand.COMMAND_WORD: // Fallthrough
             default:
@@ -151,14 +155,13 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
- 
     private Command prepareDelete(String args) {
         try {
-        	int targetIndex = -1;
-        	char ch = args.substring(args.indexOf(' ')).charAt(1);
+            int targetIndex = -1;
+        	char ch = args.substring(' ').charAt(1);
         	List<Person> internalList = UniquePersonList.internalList;
-        	if(Character.isLetter(ch)) {
-        	targetIndex = deleteName(args.substring(args.indexOf(' ')).trim(), internalList);
+        	if (Character.isLetter(ch)) {
+        		targetIndex = deleteName(args.substring(args.indexOf(' ')).trim(), internalList);
         	}
         	else {
         		targetIndex = parseArgsAsDisplayedIndex(args);
@@ -169,17 +172,14 @@ public class Parser {
         }
     }
     
-    private int deleteName(String name, List<Person> internalList) {
-  
-    	for (int i=1; i<internalList.size(); i++) {
+    private int deleteName (String name, List<Person> internalList) {
+    	
+    	for (int i=0; i<internalList.size(); i++) {
     		if (internalList.get(i).getName().toString().equals(name)) {
-    				return i+1;
-    			}
+    			return i+1;
+    		}
     	}
     	return -1;
-    			
-    		
-    	
     	
     }
 
@@ -252,6 +252,15 @@ public class Parser {
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
     }
-
+    
+    private Command prepareEditCommand(String args) {
+    	 final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+         if (!matcher.matches()) {
+             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                     FindCommand.MESSAGE_USAGE));
+         }
+         final String[] keywords = matcher.group("keywords").split("\\s+");
+         return new EditCommand(Integer.parseInt(keywords[0]), keywords[1], keywords[2]);
+    }
 
 }
