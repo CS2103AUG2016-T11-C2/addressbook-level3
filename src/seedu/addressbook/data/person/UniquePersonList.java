@@ -28,7 +28,7 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public static class PersonNotFoundException extends Exception {}
 
-    private final List<Person> internalList = new ArrayList<>();
+    public static final List<Person> internalList = new ArrayList<>();
 
     /**
      * Constructs empty person list.
