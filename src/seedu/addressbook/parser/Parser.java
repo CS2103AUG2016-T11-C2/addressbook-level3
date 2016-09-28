@@ -175,7 +175,7 @@ public class Parser {
     
     private int deleteName(String name, List<Person> internalList) {
   
-    	for (int i=1; i<internalList.size(); i++) {
+    	for (int i=0; i<internalList.size(); i++) {
     		if (internalList.get(i).getName().toString().equals(name)) {
     				return i+1;
     			}
