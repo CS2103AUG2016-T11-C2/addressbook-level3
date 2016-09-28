@@ -1,5 +1,8 @@
 package seedu.addressbook.data.person;
 
+import java.util.Arrays;
+import java.util.List;
+
 import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
@@ -12,7 +15,7 @@ public class Address {
     public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses can be in any format";
     public static final String ADDRESS_VALIDATION_REGEX = ".+";
 
-    public final String value;
+    public String value;
     private boolean isPrivate;
 
     /**
@@ -34,7 +37,18 @@ public class Address {
     public static boolean isValidAddress(String test) {
         return test.matches(ADDRESS_VALIDATION_REGEX);
     }
+    
+    /**
+     * Retrieves a listing of every word in the address, in order.
+     */
+    public List<String> getWordsInAddress() {
+        return Arrays.asList(value.split("\\s+"));
+    }
 
+    public void editAdress(String newInfo) {
+    	this.value = newInfo;
+    }
+    
     @Override
     public String toString() {
         return value;

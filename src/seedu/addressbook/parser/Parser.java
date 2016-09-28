@@ -84,6 +84,10 @@ public class Parser {
 
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
+            case SortCommand.COMMAND_WORD:
+                return new SortCommand();
+            case EditCommand.COMMAND_WORD:
+            	return prepareEditCommand(arguments);
 
             case HelpCommand.COMMAND_WORD: // Fallthrough
             default:
@@ -252,6 +256,15 @@ public class Parser {
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
     }
-
+    
+    private Command prepareEditCommand(String args) {
+    	 final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+         if (!matcher.matches()) {
+             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                     FindCommand.MESSAGE_USAGE));
+         }
+         final String[] keywords = matcher.group("keywords").split("\\s+");
+         return new EditCommand(Integer.parseInt(keywords[0]), keywords[1], keywords[2]);
+    }
 
 }
