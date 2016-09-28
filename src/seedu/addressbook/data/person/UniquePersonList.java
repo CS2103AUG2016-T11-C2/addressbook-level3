@@ -28,7 +28,7 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public static class PersonNotFoundException extends Exception {}
 
-    public final static List<Person> internalList = new ArrayList<>();
+    private final List<Person> internalList = new ArrayList<>();
 
     /**
      * Constructs empty person list.
@@ -143,8 +143,4 @@ public class UniquePersonList implements Iterable<Person> {
         return internalList.hashCode();
     }
     
-<<<<<<< HEAD
-
-=======
->>>>>>> c59912f41d7a1cec8e399c992c7f705978eb3dca
 }
