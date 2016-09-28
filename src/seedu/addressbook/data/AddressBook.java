@@ -137,6 +137,7 @@ public class AddressBook {
     public void sort() {
         allPersons.sort();
     }
+    
     public Person getPerson(ReadOnlyPerson toGet) {
     	for (Person person : allPersons) {
     		if (person.equals(toGet))
