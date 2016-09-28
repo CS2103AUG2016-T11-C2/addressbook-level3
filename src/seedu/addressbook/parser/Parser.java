@@ -2,8 +2,6 @@ package seedu.addressbook.parser;
 
 import seedu.addressbook.commands.*;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.person.Person;
-import seedu.addressbook.data.person.UniquePersonList;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -157,6 +155,7 @@ public class Parser {
      */
     private Command prepareDelete(String args) {
         try {
+<<<<<<< HEAD
             int targetIndex = -1;
         	char ch = args.substring(' ').charAt(1);
         	List<Person> internalList = UniquePersonList.internalList;
@@ -166,11 +165,15 @@ public class Parser {
         	else {
         		targetIndex = parseArgsAsDisplayedIndex(args);
         	}
+=======
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+>>>>>>> 282d8bdd330d0651f7b299d60cace10bc5fce2d1
             return new DeleteCommand(targetIndex);
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
     }
+<<<<<<< HEAD
     
     private int deleteName (String name, List<Person> internalList) {
     	
@@ -182,6 +185,8 @@ public class Parser {
     	return -1;
     	
     }
+=======
+>>>>>>> 282d8bdd330d0651f7b299d60cace10bc5fce2d1
 
     /**
      * Parses arguments in the context of the view command.
